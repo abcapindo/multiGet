@@ -28,7 +28,6 @@ function createRanges(numChunks) {
  * @param {String Array} range 
  */
 function promise(range) {
-    console.log('Creating Promise: ' + range);
     var options = {
         uri: apiUrl,
         encoding: null,
@@ -39,7 +38,6 @@ function promise(range) {
     }
     return new Promise(function (resolve, reject) {
         request.get(options, function (err, resp, body) {
-            console.log('Promise' + resp.headers['content-range']);
             if (err) {
                 reject(err);
             } else {
@@ -53,11 +51,18 @@ function promise(range) {
  * Runs application
  */
 function main() {
-    const fileName = path.basename(url.parse(apiUrl).pathname);
+    console.log("Starting Download");
+
+    let fileName;
+    if (process.argv[4] != undefined) {
+        fileName = process.argv[4];
+    } else {
+        fileName = path.basename(url.parse(apiUrl).pathname);
+    }
     createRanges(numChunks);
 
     fs.unlink(fileName, function () {
-        console.log('Deleted File');
+        console.log('Deleted File ' + fileName);
     })
 
     ranges.forEach(function (element) {
@@ -70,28 +75,7 @@ function main() {
                 if (err) throw err;
             });
         });
-    });
-}
-
-function test() {
-    const options = {
-        uri: apiUrl,
-        headers: {
-            'Range': 'bytes=0-4194303',
-            'Accept-Encoding': 'gzip, deflate'
-        },
-        encoding: null
-    };
-
-    request.get(options, function (err, resp, body) {
-        if (err) {
-            console.log(err);
-        } else {
-            fs.writeFile('./nani.jar', body, 'binary', function (err) {
-                if (err) throw err;
-                console.log('Done');
-            })
-        }
+        console.log("Finished Download.");
     });
 }
 
