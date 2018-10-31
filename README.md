@@ -6,8 +6,8 @@ Run `npm install` with the given package.json, which will download all needed de
 
 ## Usage
 The application takes in two arguments.
-URL: The URL which you want the data/file to be downloaded from.
-Number of Chunks: The number of 1MB chunks you wish to download from URL. This argument is optional and will default to 4 if none is given.
+- URL: The URL which you want the data/file to be downloaded from.
+- Number of Chunks: The number of 1MB chunks you wish to download from URL. This argument is optional and will default to 4 if none is given.
 ```
 npm start [URL] [Number of Chunks]
 ```
