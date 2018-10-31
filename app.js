@@ -4,7 +4,6 @@ const url = require("url");
 const path = require("path");
 
 const apiUrl = process.argv[2];
-let numChunks = process.argv[3] != undefined ? process.argv[3] : 4;
 
 const promises = [];
 const ranges = [];
@@ -54,11 +53,19 @@ function main() {
     console.log("Starting Download");
 
     let fileName;
-    if (process.argv[4] != undefined) {
-        fileName = process.argv[4];
+    if (process.argv.indexOf("-f") != -1) {
+        fileName = process.argv[process.argv.indexOf("-f") + 1];
     } else {
         fileName = path.basename(url.parse(apiUrl).pathname);
     }
+
+    let numChunks;
+    if (process.argv.indexOf("-c") != -1) {
+        numChunks = process.argv[process.argv.indexOf("-c") + 1];
+    } else {
+        numChunks = 4;
+    }
+
     createRanges(numChunks);
 
     fs.unlink(fileName, function () {
