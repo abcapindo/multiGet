@@ -6,8 +6,8 @@ Run `npm install` with the given package.json, which will download all needed de
 
 ## Usage
 The application takes in two arguments.
-URL: The URL which you want the data/file to be downloaded from.
-Number of Chunks: The number of 1MB chunks you wish to download from URL. This argument is optional and will default to 4 if none is given.
+- URL: The URL which you want the data/file to be downloaded from.
+- Number of Chunks: The number of 1MB chunks you wish to download from URL. This argument is optional and will default to 4 if none is given.
 ```
 npm start [URL] [Number of Chunks]
 ```
@@ -26,6 +26,6 @@ You can also specifiy the number of chunks from 1 to as much memory as your mach
 Given that the requests are asynchronous, all the data that is downloaded is saved into buffers until all data has been downloaded and put back together. When downloading large files make sure enough memory is available for such large files.
 
 ## Example
-`node app.js https://www.gutenberg.org/files/6130/6130-pdf.pdf 4`
+`node app.js https://raw.githubusercontent.com/abcapindo/multiGet/master/example.jar 2`
 
-Downloads the first 4MB of the pdf file.
+Downloads the first 2MB of the jar file. It will be saved as example.jar
